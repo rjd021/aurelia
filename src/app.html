@@ -1,0 +1,64 @@
+<template>
+
+
+<!-- header -->
+<h1> ${heading}</h1>
+
+
+<style>
+			.button {
+			  border-radius: 10px;
+			  background-color: rgba(20,10,100,0.5);
+			  border: none;
+			  color: #FFFFFF;
+			  text-align: center;
+			  font-size: 18px;
+			  padding: 3px;
+			  width: 150px;
+			  transition: all 0.5s;
+			  cursor: pointer;
+			  margin: 5px;
+			}
+</style>
+
+<!-- input -->
+<form submit.trigger="addTodo()">
+  <input type="text" value.bind="newTodo">
+  <button class="button" type="submit"> Add Task</button>
+</form>
+
+<!-- table -->
+<table>
+
+  <!-- column descriptions -->
+ 
+  <tr>
+      <th> Completed &emsp; </th>
+      <th> Task Description &emsp; </th>
+      <th> Operations &emsp; </th>
+  </tr>
+
+    <!-- repeat these for all tasks -->
+    <tr repeat.for="todo of todos">
+
+     <!-- checkbox for completed task --> 
+      <td> <input type="checkbox" checked.bind="todo.done"> </td>
+      
+        <td> <span show.bind="!todo.edit" css="text-decoration:${todo.done ? 'line-through' : 'none'}">
+         ${todo.description}
+        </span>
+      
+        <input show.bind="todo.edit" type="text" value.bind="todo.description">
+        </td>
+      <td>
+    <!-- button to update -->
+        <button class="button" click.trigger="todo.edit=!todo.edit">
+          ${ !todo.edit ? 'Edit' : 'Done'}
+        </button>
+    <!-- button to delete -->
+        <button class="button" click.trigger="removeTodo(todo)">Delete</button>  
+      </td>
+    </tr>
+
+</table>
+</template>
